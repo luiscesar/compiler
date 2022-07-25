@@ -1,0 +1,2 @@
+float i;
+bool a;int x;

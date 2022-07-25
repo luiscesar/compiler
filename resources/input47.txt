@@ -1,0 +1,1 @@
+float x; float[100] a;

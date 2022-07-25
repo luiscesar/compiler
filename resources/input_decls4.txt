@@ -1,0 +1,2 @@
+float i;
+bool[10] a; int[100] x;

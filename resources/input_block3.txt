@@ -1,0 +1,8 @@
+{
+    int x;
+    while (true) {
+        x = 1;
+        break;
+    }
+
+}

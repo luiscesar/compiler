@@ -1,0 +1,8 @@
+int x;
+int y;
+x = 1;
+y = 2;
+while( true ) {
+    x = 102.330;
+    y = 10;
+}
