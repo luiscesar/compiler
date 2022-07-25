@@ -164,26 +164,26 @@ instruction copies the value of y into x:
 
 
 ## Prerequisites
-# Install Rust
+### Install Rust
 
 https://doc.rust-lang.org/book/ch01-01-installation.html#installation
 
 ## Execution
 
-1) Build front-end
+### Build front-end
 
   a) cd <LOCAL_REPOSITORY>/compiler/front-end
   
   b) cargo build
 
-2) Edit a file with a source language program.
+### Edit a file with a source language program.
 
    Example: 
    
     	Edit <LOCAL_REPOSITORY>/compiler/resources/input_program1.txt
 
 
-3) Run front-end
+### Run front-end
 
    a) cd <LOCAL_REPOSITORY>/compiler
    
