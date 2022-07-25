@@ -33,7 +33,9 @@ This syntax-directed translator maps code fragments as Fig. 1 into three-address
 
 }
 
+
 Fig 1.
+
 
 
 
@@ -79,7 +81,9 @@ goto L0
 
 L1: 
 
+
 Fig 2.
+
 
 
 ## The Source Language
