@@ -176,7 +176,7 @@ https://doc.rust-lang.org/book/ch01-01-installation.html#installation
   
   b) cargo build
 
-### Edit a file with a source language program.
+### Edit a file with a source language program
 
    Example: 
    
