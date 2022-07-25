@@ -87,7 +87,6 @@ pub fn integration_test_parser_program_error_while_case5() {
 //pub const BREAK_WITHOUT_LOOP:&str = "A break statement is expected to be within a loop";
 #[test]
 pub fn integration_test_parser_program_error_break_case6() {
-    
     let file_name = "resources/input_program_error6.txt".to_string();
     let parser_result = 
         Parser::new(file_name);
