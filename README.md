@@ -10,6 +10,7 @@ into three-address code, an intermediate representation.
 This syntax-directed translator maps code fragments as Fig. 1 into three-address code of the form of Fig. 2.
 
 { 
+
     int i; int j; float v; float x; float[100] a;
 
     i = 0 ;
