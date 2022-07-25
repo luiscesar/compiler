@@ -152,11 +152,11 @@ Three-address instructions are executed in numerical sequence unless forced
 to do otherwise by a conditional or unconditional jump. We choose the following
 instructions for control flow:
 
-	ifFalse x goto L if x is false, next execute the instruction labeled L
+	iffalse x goto L => if x is false, next execution will be the instruction labeled with L
 	
-	ifTrue x goto L if x is true, next execute the instruction labeled L
+	if x goto L => if x is true, next execution will bhe the instruction labeled with L
 	
-	goto L next execute the instruction labeled L
+	goto L => next execution will be the instruction labeled with L
 	
 
 A label L can be attached to any instruction by prepending a prefix L:. An
