@@ -1,9 +1,8 @@
 # Compiler
 ## Introduction
 
-This example shows a software development that translates representative programming language statements
-into three-address code, an intermediate representation.
-
+This compiler translates representative programming language statements
+into three-address code, an intermediate representation. The formal specification of the language in BNF format is shown below.
 
 ## Example
 
