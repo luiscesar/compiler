@@ -2,7 +2,7 @@
 ## Introduction
 
 This compiler translates representative programming language statements
-into three-address code, an intermediate representation. The formal specification of the language in BNF format is shown below.
+into three-address code intermediate representation. The formal specification of the language in BNF format is shown below.
 
 ## Example
 
