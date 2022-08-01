@@ -191,7 +191,9 @@ https://doc.rust-lang.org/book/ch01-01-installation.html#installation
 
    a) cd <LOCAL_REPOSITORY>/compiler
    
-   b) target/build/front-end resources/input_program1.txt
+   b) export PATH=$PATH:./target/build
+   
+   c) front-end resources/input_program1.txt
   
  
  
