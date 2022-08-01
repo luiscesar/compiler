@@ -178,7 +178,7 @@ https://doc.rust-lang.org/book/ch01-01-installation.html#installation
 
   a) cd <LOCAL_REPOSITORY>/compiler/front-end
   
-  b) cargo build
+  b) cargo build --release
 
 ### Edit a file with a source language program
 
@@ -191,7 +191,7 @@ https://doc.rust-lang.org/book/ch01-01-installation.html#installation
 
    a) cd <LOCAL_REPOSITORY>/compiler
    
-   b) export PATH=$PATH:./target/build
+   b) export PATH=$PATH:./target/release
    
    c) front-end resources/input_program1.txt
   
