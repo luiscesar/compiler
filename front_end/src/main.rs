@@ -5,7 +5,7 @@ use front_end::parser::Parser;
 fn main() {
     let args: Vec<String> = env::args().collect();
     if args.len() == 1 {
-        println!("Usage: <command> <file>");
+        eprintln!("Usage: <command> <file>");
         process::exit(1);
     } else {
         let file_name = args.get(1).unwrap();
@@ -17,13 +17,13 @@ fn main() {
                 match &program_result {
                     Ok(()) => {},
                     Err(error_ptr) => {
-                        println!("{}",error_ptr.to_string());
+                        eprintln!("{}",error_ptr.to_string());
                         process::exit(1);
                     }
                 }
             },
             Err(error_ptr) => {
-                println!("{}",error_ptr.to_string());
+                eprintln!("{}",error_ptr.to_string());
                 process::exit(1);
             }
         }
