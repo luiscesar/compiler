@@ -17,6 +17,7 @@ impl MyFile {
 
     pub fn read(&mut self) -> Option<char> {
         let mut buffer = [0;1];
+        
         let x = self.reader.read(&mut buffer[..]);
         match x {
             Ok(c) if c > 0 => Some(buffer[0] as char),
