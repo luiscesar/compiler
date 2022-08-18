@@ -1,10 +1,10 @@
-use std::time::Instant;
 use rand::Rng;
+use std::time::Instant;
 
 use common::collections::list::mylist::MyList;
 use common::collections::list::myveclist::MyVecList;
 
-const MAX:i32 = 100_000;
+const MAX: i32 = 100_000;
 
 #[test]
 pub fn integration_test_list_myveclist_case1() {
@@ -23,9 +23,9 @@ pub fn integration_test_list_myveclist_cons_case1() {
 #[test]
 pub fn performance_test_list_myveclist_cons_case1() {
     let mut my_list: MyVecList<String> = MyVecList::nil();
-    
+
     let now = Instant::now();
-    for index in 1..(MAX+1) {
+    for index in 1..(MAX + 1) {
         let element = String::from("Hello") + &index.to_string();
         my_list.cons(element);
     }
@@ -33,19 +33,23 @@ pub fn performance_test_list_myveclist_cons_case1() {
     assert!(!my_list.is_empty());
 
     println!("MAX {}", MAX);
-    println!("integration test myveclist case1 (millis): {}", 
-        elapased_time.as_millis());
-    println!("integration test myveclist case1 (nanos): {}", 
-        elapased_time.as_nanos());
+    println!(
+        "integration test myveclist case1 (millis): {}",
+        elapased_time.as_millis()
+    );
+    println!(
+        "integration test myveclist case1 (nanos): {}",
+        elapased_time.as_nanos()
+    );
 }
 
 #[test]
 pub fn performance_test_list_myveclist_vec_cons_case1() {
     let capacity = MAX as usize;
-    let mut my_list:Vec<String> = Vec::with_capacity(capacity);
-    
+    let mut my_list: Vec<String> = Vec::with_capacity(capacity);
+
     let now = Instant::now();
-    for index in 1..(MAX+1) {
+    for index in 1..(MAX + 1) {
         let element = String::from("Hello") + &index.to_string();
         my_list.push(element);
     }
@@ -53,34 +57,41 @@ pub fn performance_test_list_myveclist_vec_cons_case1() {
     assert!(!my_list.is_empty());
 
     println!("MAX {}", MAX);
-    println!("integration test myveclist case1 (millis): {}", 
-        elapased_time.as_millis());
-    println!("integration test myveclist case1 (nanos): {}", 
-        elapased_time.as_nanos());
+    println!(
+        "integration test myveclist case1 (millis): {}",
+        elapased_time.as_millis()
+    );
+    println!(
+        "integration test myveclist case1 (nanos): {}",
+        elapased_time.as_nanos()
+    );
 }
 
 #[test]
 pub fn performance_test_list_myveclist_vec_head_case1() {
     let capacity = MAX as usize;
-    let mut my_list:Vec<String> = Vec::with_capacity(capacity);
-    
-    for index in 1..(MAX+1) {
+    let mut my_list: Vec<String> = Vec::with_capacity(capacity);
+
+    for index in 1..(MAX + 1) {
         let element = String::from("Hello") + &index.to_string();
         my_list.push(element);
-
     }
     let now = Instant::now();
-    let head = &my_list[my_list.len()-1];
+    let head = &my_list[my_list.len() - 1];
     let elapased_time = now.elapsed();
 
     let expected_head = String::from("Hello") + &MAX.to_string();
-    assert_eq!(head,&expected_head);
+    assert_eq!(head, &expected_head);
 
     println!("MAX {}", MAX);
-    println!("integration test myveclist case1 (millis): {}", 
-        elapased_time.as_millis());
-    println!("integration test myveclist case1 (nanos): {}", 
-        elapased_time.as_nanos());
+    println!(
+        "integration test myveclist case1 (millis): {}",
+        elapased_time.as_millis()
+    );
+    println!(
+        "integration test myveclist case1 (nanos): {}",
+        elapased_time.as_nanos()
+    );
 }
 
 #[test]
@@ -88,7 +99,7 @@ pub fn integration_test_list_myveclist_head_case1() {
     let mut my_list: MyVecList<String> = MyVecList::nil();
     let head = my_list.head();
     let expected_head = None;
-    assert_eq!(head,expected_head)
+    assert_eq!(head, expected_head)
 }
 
 #[test]
@@ -99,13 +110,13 @@ pub fn integration_test_list_myveclist_head_case2() {
     let head = my_list.head();
     let element = String::from("Hello");
     let expected_head = Some(&element);
-    assert_eq!(head,expected_head)
+    assert_eq!(head, expected_head)
 }
 
 #[test]
 pub fn integration_test_list_myveclist_head_case3() {
     let mut my_list: MyVecList<String> = MyVecList::nil();
-    
+
     let element = String::from("Hello");
     my_list.cons(element);
     let element = String::from("World");
@@ -116,13 +127,13 @@ pub fn integration_test_list_myveclist_head_case3() {
     let head = my_list.head();
     let element = String::from("Hello2");
     let expected_head = Some(&element);
-    assert_eq!(head,expected_head)
+    assert_eq!(head, expected_head)
 }
 
 #[test]
 pub fn performance_test_list_myveclist_head_case4() {
     let mut my_list: MyVecList<String> = MyVecList::nil();
-   
+
     for index in 1..=MAX {
         let element = String::from("Hello") + &index.to_string();
         my_list.cons(element);
@@ -134,12 +145,16 @@ pub fn performance_test_list_myveclist_head_case4() {
 
     let value = String::from("Hello") + &MAX.to_string();
     let expected_head = Some(&value);
-    assert_eq!(head,expected_head);
+    assert_eq!(head, expected_head);
 
-    println!("integration test myveclist case1 (millis): {}", 
-        elapased_time.as_millis());
-    println!("integration test myveclist case1 (nanos): {}", 
-        elapased_time.as_nanos());
+    println!(
+        "integration test myveclist case1 (millis): {}",
+        elapased_time.as_millis()
+    );
+    println!(
+        "integration test myveclist case1 (nanos): {}",
+        elapased_time.as_nanos()
+    );
 }
 
 #[test]
@@ -148,7 +163,7 @@ pub fn integration_test_list_myveclist_tail_case1() {
     my_list.tail();
     let head = my_list.head();
     let expected_head = None;
-    assert_eq!(head,expected_head);
+    assert_eq!(head, expected_head);
 }
 
 #[test]
@@ -159,13 +174,13 @@ pub fn integration_test_list_myveclist_tail_case2() {
     my_list.tail();
     let head = my_list.head();
     let expected_head = None;
-    assert_eq!(head,expected_head);
+    assert_eq!(head, expected_head);
 }
 
 #[test]
 pub fn integration_test_list_myveclist_tail_case3() {
     let mut my_list: MyVecList<String> = MyVecList::nil();
-    
+
     let element = String::from("Hello");
     my_list.cons(element);
     let element = String::from("World");
@@ -178,14 +193,14 @@ pub fn integration_test_list_myveclist_tail_case3() {
     let head = my_list.head();
     let value = String::from("World");
     let expected_head = Some(&value);
-    assert_eq!(head,expected_head);
+    assert_eq!(head, expected_head);
 }
 
 #[test]
 pub fn performance_test_list_myveclist_tail_case4() {
     let mut my_list: MyVecList<String> = MyVecList::nil();
-   
-    for index in 1..(MAX+1) {
+
+    for index in 1..(MAX + 1) {
         let element = String::from("Hello") + &index.to_string();
         my_list.cons(element);
     }
@@ -195,14 +210,18 @@ pub fn performance_test_list_myveclist_tail_case4() {
     let elapased_time = now.elapsed();
 
     let head = my_list.head();
-    let value = String::from("Hello") + &(MAX-1).to_string();
+    let value = String::from("Hello") + &(MAX - 1).to_string();
     let expected_head = Some(&value);
-    assert_eq!(head,expected_head);
+    assert_eq!(head, expected_head);
 
-    println!("integration test myveclist case1 (millis): {}", 
-        elapased_time.as_millis());
-    println!("integration test myveclist case1 (nanos): {}", 
-        elapased_time.as_nanos());
+    println!(
+        "integration test myveclist case1 (millis): {}",
+        elapased_time.as_millis()
+    );
+    println!(
+        "integration test myveclist case1 (nanos): {}",
+        elapased_time.as_nanos()
+    );
 }
 
 #[test]
@@ -222,7 +241,7 @@ pub fn integration_test_list_myveclist_is_empty_case2() {
 #[test]
 pub fn integration_test_list_myveclist_is_empty_case3() {
     let mut my_list: MyVecList<String> = MyVecList::nil();
-    
+
     let element = String::from("Hello");
     my_list.cons(element);
     let element = String::from("World");
@@ -236,8 +255,8 @@ pub fn integration_test_list_myveclist_is_empty_case3() {
 #[test]
 pub fn performance_test_list_myveclist_is_empty_case4() {
     let mut my_list: MyVecList<String> = MyVecList::nil();
-    
-    for index in 1..(MAX+1) {
+
+    for index in 1..(MAX + 1) {
         let element = String::from("Hello") + &index.to_string();
         my_list.cons(element);
     }
@@ -247,9 +266,12 @@ pub fn performance_test_list_myveclist_is_empty_case4() {
     let elapased_time = now.elapsed();
 
     assert!(!is_empty);
-    println!("integration test myveclist case1 (millis): {}", 
-        elapased_time.as_millis());
-    println!("integration test myveclist case1 (nanos): {}", 
-        elapased_time.as_nanos());
+    println!(
+        "integration test myveclist case1 (millis): {}",
+        elapased_time.as_millis()
+    );
+    println!(
+        "integration test myveclist case1 (nanos): {}",
+        elapased_time.as_nanos()
+    );
 }
-

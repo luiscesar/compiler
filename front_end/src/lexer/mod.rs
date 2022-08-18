@@ -1,26 +1,29 @@
-use std::{collections::HashMap, error::Error, sync::atomic::{AtomicUsize, Ordering}};
+use std::{
+    collections::HashMap,
+    error::Error,
+    sync::atomic::{AtomicUsize, Ordering},
+};
 
+use common::{io::fs::myfile::MyFile, pointer::Pointer};
 
-use common::{io::fs::myfile::MyFile,pointer::Pointer};
-
-use self::{token::{TokenPtr, If,Else,While,Do,Break,True,False,And,Or,Eq,Ne,Le,Ge,Int,Float,Bool, Token, BLANK_TOKEN, C_AND, C_OR, C_EQ, C_NE, C_LT, C_GT, Value}};
-
+use self::token::{
+    And, Bool, Break, Do, Else, Eq, False, Float, Ge, If, Int, Le, Ne, Or, Token, TokenPtr, True,
+    Value, While, BLANK_TOKEN, C_AND, C_EQ, C_GT, C_LT, C_NE, C_OR,
+};
 
 pub mod token;
 
-#[derive(Debug,PartialEq)]
+#[derive(Debug, PartialEq)]
 pub struct Lexer {
-    peek:Option<char>,
-    lookahead:Option<char>,
-    reserved_tokens:HashMap<String,TokenPtr>,
-    myfile:MyFile,
+    peek: Option<char>,
+    lookahead: Option<char>,
+    reserved_tokens: HashMap<String, TokenPtr>,
+    myfile: MyFile,
 }
 
 static LINE: AtomicUsize = AtomicUsize::new(1);
 
-
 impl Lexer {
-
     pub fn add_line() {
         LINE.fetch_add(1, Ordering::Relaxed);
     }
@@ -29,18 +32,18 @@ impl Lexer {
         LINE.fetch_add(0, Ordering::Relaxed)
     }
 
-    pub fn new(file_name:&str) -> Result<Lexer,Box<dyn Error>> {
+    pub fn new(file_name: &str) -> Result<Lexer, Box<dyn Error>> {
         let my_file = MyFile::new(file_name)?;
         let peek = None;
         let lookahead: Option<char> = None;
-        
+
         let reserved_tokens = Lexer::get_reserved_tokens();
-         
+
         let lexer = Lexer {
-            peek:peek,
-            lookahead:lookahead,
-            reserved_tokens:reserved_tokens,
-            myfile:my_file,
+            peek: peek,
+            lookahead: lookahead,
+            reserved_tokens: reserved_tokens,
+            myfile: my_file,
         };
         Ok(lexer)
     }
@@ -60,17 +63,17 @@ impl Lexer {
             _ => Ok(Pointer::new_pointer(BLANK_TOKEN)),
         }
     }
- 
+
     fn get_reserved_tokens() -> HashMap<String, TokenPtr> {
-        let mut reserved_tokens:HashMap<String,TokenPtr> = HashMap::new();
-       
-        reserved_tokens.insert(If.to_string(),Pointer::new_pointer(If));
-        reserved_tokens.insert(Else.to_string(),Pointer::new_pointer(Else));
-        reserved_tokens.insert(While.to_string(),Pointer::new_pointer(While));
+        let mut reserved_tokens: HashMap<String, TokenPtr> = HashMap::new();
+
+        reserved_tokens.insert(If.to_string(), Pointer::new_pointer(If));
+        reserved_tokens.insert(Else.to_string(), Pointer::new_pointer(Else));
+        reserved_tokens.insert(While.to_string(), Pointer::new_pointer(While));
         reserved_tokens.insert(Do.to_string(), Pointer::new_pointer(Do));
         reserved_tokens.insert(Break.to_string(), Pointer::new_pointer(Break));
-        reserved_tokens.insert(True.to_string(),Pointer::new_pointer(True));
-        reserved_tokens.insert(False.to_string(),Pointer::new_pointer(False));
+        reserved_tokens.insert(True.to_string(), Pointer::new_pointer(True));
+        reserved_tokens.insert(False.to_string(), Pointer::new_pointer(False));
         reserved_tokens.insert(Int.to_string(), Pointer::new_pointer(Int));
         reserved_tokens.insert(Float.to_string(), Pointer::new_pointer(Float));
         reserved_tokens.insert(Bool.to_string(), Pointer::new_pointer(Bool));
@@ -86,20 +89,19 @@ impl Lexer {
         }
     }
 
-    fn readch2(&mut self, c:char) -> Option<bool> {
+    fn readch2(&mut self, c: char) -> Option<bool> {
         self.readch();
         let t = &self.peek;
         match t {
-            Some(x) => 
-                {   
-                    if x == &c {
-                        self.lookahead = None;
-                        Some(true)
-                    } else {
-                        self.lookahead = self.peek;
-                        Some(false)
-                    }
-                },
+            Some(x) => {
+                if x == &c {
+                    self.lookahead = None;
+                    Some(true)
+                } else {
+                    self.lookahead = self.peek;
+                    Some(false)
+                }
+            }
             None => None,
         }
     }
@@ -107,15 +109,13 @@ impl Lexer {
     fn skip_blanks(&mut self) {
         loop {
             self.readch();
-            if (self.peek == Some(' ')) || (self.peek == Some('\t')) || 
-                (self.peek == Some('\r')) {
-                ;
+            if (self.peek == Some(' ')) || (self.peek == Some('\t')) || (self.peek == Some('\r')) {
             } else if self.peek == Some('\n') {
                 Lexer::add_line();
             } else {
                 break;
             }
-        }   
+        }
     }
 
     fn scan_and_token(&mut self) -> TokenPtr {
@@ -166,7 +166,7 @@ impl Lexer {
         }
     }
 
-    fn scan_integer(&mut self, x:char, mut v:String) -> String {
+    fn scan_integer(&mut self, x: char, mut v: String) -> String {
         v.push(x);
         loop {
             self.readch();
@@ -180,30 +180,30 @@ impl Lexer {
             } else {
                 break;
             }
-        };
+        }
         v
     }
 
-    fn scan_numeric_token(&mut self,x:char) -> TokenPtr {
-        let mut v:String = String::new();
+    fn scan_numeric_token(&mut self, x: char) -> TokenPtr {
+        let mut v: String = String::new();
         v = self.scan_integer(x, v);
         if let Some(z) = self.lookahead {
             if z == '.' {
                 self.lookahead = None;
                 v = self.scan_integer(z, v);
-                let w:f64 = v.parse::<f64>().unwrap();
+                let w: f64 = v.parse::<f64>().unwrap();
                 Pointer::new_pointer(Token::Constant(Value::Float(w)))
             } else {
-                let v:i32 = v.parse::<i32>().unwrap();
+                let v: i32 = v.parse::<i32>().unwrap();
                 Pointer::new_pointer(Token::Constant(Value::Int(v)))
             }
         } else {
-            let v:i32 = v.parse::<i32>().unwrap();
+            let v: i32 = v.parse::<i32>().unwrap();
             Pointer::new_pointer(Token::Constant(Value::Int(v)))
-        } 
+        }
     }
 
-    fn scan_alphanumeric_token(&mut self,x:char) -> TokenPtr {
+    fn scan_alphanumeric_token(&mut self, x: char) -> TokenPtr {
         let mut buffer = String::new();
         buffer.push(x);
         loop {
@@ -217,16 +217,15 @@ impl Lexer {
                         self.lookahead = Some(y);
                         break;
                     }
-                },
+                }
             }
-        };
+        }
         if let Some(x) = self.reserved_tokens.get(buffer.as_str()) {
             Pointer::clone(x)
         } else {
             Pointer::new_pointer(Token::Id(Pointer::new_pointer(buffer)))
         }
     }
-
 }
 
 #[cfg(test)]

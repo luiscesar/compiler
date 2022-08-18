@@ -1,2 +1,2 @@
-mod mystructlist;
 mod myenumlist;
+mod mystructlist;

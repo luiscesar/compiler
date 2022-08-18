@@ -1,10 +1,10 @@
-use std::time::Instant;
 use rand::Rng;
+use std::time::Instant;
 
-use common::collections::list::mylist::MyList;
 use common::collections::list::mylinkedlist::MyLinkedList;
+use common::collections::list::mylist::MyList;
 
-const MAX:i32 = 100_000;
+const MAX: i32 = 100_000;
 
 #[test]
 pub fn integration_test_list_mylinkedlist_case1() {
@@ -25,7 +25,7 @@ pub fn integration_test_list_mylinkedlist_cons_case2() {
     let mut my_list: MyLinkedList<String> = MyLinkedList::nil();
 
     let now = Instant::now();
-    for index in 1..(MAX+1) {
+    for index in 1..(MAX + 1) {
         let element = String::from("Hello") + &index.to_string();
         my_list.cons(element);
     }
@@ -33,10 +33,14 @@ pub fn integration_test_list_mylinkedlist_cons_case2() {
     assert!(!my_list.is_empty());
 
     println!("MAX {}", MAX);
-    println!("integration test mylinkedlist case1 (nanos): {}", 
-        elapased_time.as_nanos());
-    println!("integration test mylinkedlist case1 (millis): {}", 
-        elapased_time.as_millis());
+    println!(
+        "integration test mylinkedlist case1 (nanos): {}",
+        elapased_time.as_nanos()
+    );
+    println!(
+        "integration test mylinkedlist case1 (millis): {}",
+        elapased_time.as_millis()
+    );
 }
 
 #[test]
@@ -44,7 +48,7 @@ pub fn integration_test_list_mylinkedlist_head_case1() {
     let mut my_list: MyLinkedList<String> = MyLinkedList::nil();
     let head = my_list.head();
     let expected_head = None;
-    assert_eq!(head,expected_head)
+    assert_eq!(head, expected_head)
 }
 
 #[test]
@@ -55,13 +59,13 @@ pub fn integration_test_list_mylinkedlist_head_case2() {
     let head = my_list.head();
     let element = String::from("Hello");
     let expected_head = Some(&element);
-    assert_eq!(head,expected_head)
+    assert_eq!(head, expected_head)
 }
 
 #[test]
 pub fn integration_test_list_mylinkedlist_head_case3() {
     let mut my_list: MyLinkedList<String> = MyLinkedList::nil();
-    
+
     let element = String::from("Hello");
     my_list.cons(element);
     let element = String::from("World");
@@ -72,14 +76,14 @@ pub fn integration_test_list_mylinkedlist_head_case3() {
     let head = my_list.head();
     let element = String::from("Hello2");
     let expected_head = Some(&element);
-    assert_eq!(head,expected_head)
+    assert_eq!(head, expected_head)
 }
 
 #[test]
 pub fn integration_test_list_mylinkedlist_head_case4() {
     let mut my_list: MyLinkedList<String> = MyLinkedList::nil();
-   
-    for index in 1..(MAX+1) {
+
+    for index in 1..(MAX + 1) {
         let element = String::from("Hello") + &index.to_string();
         my_list.cons(element);
     }
@@ -90,12 +94,16 @@ pub fn integration_test_list_mylinkedlist_head_case4() {
 
     let value = String::from("Hello") + &MAX.to_string();
     let expected_head = Some(&value);
-    assert_eq!(head,expected_head);
+    assert_eq!(head, expected_head);
 
-    println!("integration test mylinkedlist case1 (millis): {}", 
-        elapased_time.as_millis());
-    println!("integration test mylinkedlist case1 (nanos): {}", 
-        elapased_time.as_nanos());
+    println!(
+        "integration test mylinkedlist case1 (millis): {}",
+        elapased_time.as_millis()
+    );
+    println!(
+        "integration test mylinkedlist case1 (nanos): {}",
+        elapased_time.as_nanos()
+    );
 }
 
 #[test]
@@ -104,7 +112,7 @@ pub fn integration_test_list_mylinkedlist_tail_case1() {
     my_list.tail();
     let head = my_list.head();
     let expected_head = None;
-    assert_eq!(head,expected_head);
+    assert_eq!(head, expected_head);
 }
 
 #[test]
@@ -115,13 +123,13 @@ pub fn integration_test_list_mylinkedlist_tail_case2() {
     my_list.tail();
     let head = my_list.head();
     let expected_head = None;
-    assert_eq!(head,expected_head);
+    assert_eq!(head, expected_head);
 }
 
 #[test]
 pub fn integration_test_list_mylinkedlist_tail_case3() {
     let mut my_list: MyLinkedList<String> = MyLinkedList::nil();
-    
+
     let element = String::from("Hello");
     my_list.cons(element);
     let element = String::from("World");
@@ -134,14 +142,14 @@ pub fn integration_test_list_mylinkedlist_tail_case3() {
     let head = my_list.head();
     let value = String::from("World");
     let expected_head = Some(&value);
-    assert_eq!(head,expected_head);
+    assert_eq!(head, expected_head);
 }
 
 #[test]
 pub fn integration_test_list_mylinkedlist_tail_case4() {
     let mut my_list: MyLinkedList<String> = MyLinkedList::nil();
-   
-    for index in 1..(MAX+1) {
+
+    for index in 1..(MAX + 1) {
         let element = String::from("Hello") + &index.to_string();
         my_list.cons(element);
     }
@@ -151,14 +159,18 @@ pub fn integration_test_list_mylinkedlist_tail_case4() {
     let elapased_time = now.elapsed();
 
     let head = my_list.head();
-    let value = String::from("Hello") + &(MAX-1).to_string();
+    let value = String::from("Hello") + &(MAX - 1).to_string();
     let expected_head = Some(&value);
-    assert_eq!(head,expected_head);
+    assert_eq!(head, expected_head);
 
-    println!("integration test mylinkedlist case1 (millis): {}", 
-        elapased_time.as_millis());
-    println!("integration test mylinkedlist case1 (nanos): {}", 
-        elapased_time.as_nanos());
+    println!(
+        "integration test mylinkedlist case1 (millis): {}",
+        elapased_time.as_millis()
+    );
+    println!(
+        "integration test mylinkedlist case1 (nanos): {}",
+        elapased_time.as_nanos()
+    );
 }
 
 #[test]
@@ -178,7 +190,7 @@ pub fn integration_test_list_mylinkedlist_is_empty_case2() {
 #[test]
 pub fn integration_test_list_mylinkedlist_is_empty_case3() {
     let mut my_list: MyLinkedList<String> = MyLinkedList::nil();
-    
+
     let element = String::from("Hello");
     my_list.cons(element);
     let element = String::from("World");
@@ -192,8 +204,8 @@ pub fn integration_test_list_mylinkedlist_is_empty_case3() {
 #[test]
 pub fn integration_test_list_mylinkedlist_is_empty_case4() {
     let mut my_list: MyLinkedList<String> = MyLinkedList::nil();
-   
-    for index in 1..(MAX+1) {
+
+    for index in 1..(MAX + 1) {
         let element = String::from("Hello") + &index.to_string();
         my_list.cons(element);
     }
@@ -203,8 +215,12 @@ pub fn integration_test_list_mylinkedlist_is_empty_case4() {
     let elapased_time = now.elapsed();
 
     assert!(!is_empty);
-    println!("integration test mylinkedlist case1 (millis): {}", 
-        elapased_time.as_millis());
-    println!("integration test mylinkedlist case1 (nanos): {}", 
-        elapased_time.as_nanos());
+    println!(
+        "integration test mylinkedlist case1 (millis): {}",
+        elapased_time.as_millis()
+    );
+    println!(
+        "integration test mylinkedlist case1 (nanos): {}",
+        elapased_time.as_nanos()
+    );
 }

@@ -1,31 +1,33 @@
-use std::{collections::HashSet, hash::Hash};
-use std::cmp::PartialEq;
-use std::cmp::Eq;
 use super::myset::MySet;
+use std::cmp::Eq;
+use std::cmp::PartialEq;
+use std::{collections::HashSet, hash::Hash};
 
-#[derive(Debug,PartialEq)]
-pub struct MyHashSet<T> 
-    where T: Eq + Hash {
+#[derive(Debug, PartialEq)]
+pub struct MyHashSet<T>
+where
+    T: Eq + Hash,
+{
     values: HashSet<T>,
 }
 
-impl<T:Eq+Hash> MyHashSet<T> {
+impl<T: Eq + Hash> MyHashSet<T> {
     pub fn new() -> MyHashSet<T> {
         let v = HashSet::with_capacity(10);
-        MyHashSet{values:v}
+        MyHashSet { values: v }
     }
 }
 
-impl<T:Eq+Hash> MySet<T> for MyHashSet<T> {
-    fn add(&mut self,element:T) {
+impl<T: Eq + Hash> MySet<T> for MyHashSet<T> {
+    fn add(&mut self, element: T) {
         self.values.insert(element);
     }
 
-    fn remove(self:&mut Self, element:&T) {
+    fn remove(self: &mut Self, element: &T) {
         self.values.remove(element);
     }
 
-    fn contains(&self, element:&T) -> bool {
+    fn contains(&self, element: &T) -> bool {
         self.values.contains(&element)
     }
 
@@ -75,7 +77,7 @@ mod tests {
         let mut my_hash_set: MyHashSet<i32> = MyHashSet::new();
         my_hash_set.add(1);
         println!("size {}", my_hash_set.size());
-        assert_eq!(my_hash_set.size(),1);
+        assert_eq!(my_hash_set.size(), 1);
     }
 
     #[test]
@@ -84,7 +86,7 @@ mod tests {
         let mut my_hash_set: MyHashSet<String> = MyHashSet::new();
         my_hash_set.add(element);
         println!("size {}", my_hash_set.size());
-        assert_eq!(my_hash_set.size(),1);
+        assert_eq!(my_hash_set.size(), 1);
     }
 
     #[test]
@@ -93,7 +95,7 @@ mod tests {
         let mut my_hash_set: MyHashSet<i32> = MyHashSet::new();
         my_hash_set.add(1);
         my_hash_set.remove(&1);
-        assert_eq!(my_hash_set.size(),0);
+        assert_eq!(my_hash_set.size(), 0);
     }
 
     #[test]
@@ -103,7 +105,7 @@ mod tests {
         my_hash_set.add(element);
         let element = String::from("Hello");
         my_hash_set.remove(&element);
-        assert_eq!(my_hash_set.size(),0);
+        assert_eq!(my_hash_set.size(), 0);
     }
 
     #[test]
@@ -121,7 +123,7 @@ mod tests {
         my_hash_set.add(1);
         my_hash_set.remove(&1);
         println!("size = {}", my_hash_set.size());
-        assert_eq!(my_hash_set.size(),0);
+        assert_eq!(my_hash_set.size(), 0);
     }
 
     #[test]

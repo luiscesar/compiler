@@ -4,20 +4,23 @@ use std::io::{BufReader, Read};
 
 #[derive(Debug)]
 pub struct MyFile {
-    reader:BufReader<File>,
-    name:String,
+    reader: BufReader<File>,
+    name: String,
 }
 
 impl MyFile {
-    pub fn new(filename:&str) -> Result<MyFile,Box<dyn Error>> {
+    pub fn new(filename: &str) -> Result<MyFile, Box<dyn Error>> {
         let f = File::open(filename)?;
         let reader = BufReader::new(f);
-        Ok(MyFile{reader:reader,name:String::from(filename)})
-    } 
+        Ok(MyFile {
+            reader: reader,
+            name: String::from(filename),
+        })
+    }
 
     pub fn read(&mut self) -> Option<char> {
-        let mut buffer = [0;1];
-        
+        let mut buffer = [0; 1];
+
         let x = self.reader.read(&mut buffer[..]);
         match x {
             Ok(c) if c > 0 => Some(buffer[0] as char),
@@ -34,13 +37,13 @@ impl PartialEq for MyFile {
 
 #[cfg(test)]
 mod tests {
+    use super::MyFile;
     use std::error::Error;
     use std::fs;
     use std::fs::File;
-    use std::io::{self, BufReader, BufRead};
+    use std::io::{self, BufRead, BufReader};
     use std::path::Path;
     use std::process;
-    use super::MyFile;
 
     #[test]
     fn test_myfile_new_case1() {
@@ -59,7 +62,7 @@ mod tests {
         assert!(match my_file {
             Err(_) => true,
             _ => false,
-        });    
+        });
     }
 
     #[test]
@@ -70,7 +73,7 @@ mod tests {
             loop {
                 let c = my_file.read();
                 println!("char: {:?}", c);
-                if c==None {
+                if c == None {
                     break;
                 }
             }
@@ -91,7 +94,7 @@ mod tests {
                 }
             }
         }
-        assert_eq!(result,String::from("aeiou"));
+        assert_eq!(result, String::from("aeiou"));
     }
 
     #[test]
@@ -108,7 +111,7 @@ mod tests {
                 }
             }
         }
-        assert_eq!(result,String::from("aeiou\r\n"));
+        assert_eq!(result, String::from("aeiou\r\n"));
     }
 
     #[test]
@@ -119,7 +122,7 @@ mod tests {
         println!("os_error {:?}", os_error.to_string());
         if let Err(x) = f {
             println!("x {:?}", x.to_string());
-            assert_eq!(x.to_string(),os_error.to_string());
+            assert_eq!(x.to_string(), os_error.to_string());
         } else {
             assert!(false);
         }
@@ -128,9 +131,7 @@ mod tests {
     #[test]
     fn test_myfile_fs_read_case1() {
         let filename = "resources/poem.txt";
-        let contents = 
-            fs::read_to_string(filename)
-            .expect("Something went wrong reading the file");
+        let contents = fs::read_to_string(filename).expect("Something went wrong reading the file");
 
         println!("With text:\n{}", contents);
     }
@@ -156,8 +157,12 @@ mod tests {
         let filename = "resources/poem.txt";
         let contents = fs::read_to_string(filename);
         match contents {
-            Ok(x) => {println!("OK \n {}", x)},
-            Err(x) => {println!("Err \n {}", x)},
+            Ok(x) => {
+                println!("OK \n {}", x)
+            }
+            Err(x) => {
+                println!("Err \n {}", x)
+            }
         }
     }
 
@@ -166,8 +171,12 @@ mod tests {
         let filename = "resources/poem2.txt";
         let contents = fs::read_to_string(filename);
         match contents {
-            Ok(x) => {println!("OK \n {}", x)},
-            Err(x) => {println!("Err \n {}", x)},
+            Ok(x) => {
+                println!("OK \n {}", x)
+            }
+            Err(x) => {
+                println!("Err \n {}", x)
+            }
         }
     }
 
@@ -176,8 +185,12 @@ mod tests {
         let filename = "resources/poem.txt";
         let contents = fs::read_to_string(filename);
         match contents {
-            Ok(x) => {show_contents_lines(x);},
-            Err(x) => {println!("Err \n {}", x)},
+            Ok(x) => {
+                show_contents_lines(x);
+            }
+            Err(x) => {
+                println!("Err \n {}", x)
+            }
         }
     }
 
@@ -186,8 +199,12 @@ mod tests {
         let filename = "resources/poem.txt";
         let contents = fs::read_to_string(filename);
         match contents {
-            Ok(x) => {show_contents_lines(x);},
-            Err(x) => {println!("Err \n {}", x)},
+            Ok(x) => {
+                show_contents_lines(x);
+            }
+            Err(x) => {
+                println!("Err \n {}", x)
+            }
         }
     }
 
@@ -221,7 +238,7 @@ mod tests {
                     println!("LINE: {}", ip);
                 }
             }
-        }        
+        }
     }
 
     #[test]
@@ -232,17 +249,17 @@ mod tests {
             for line in lines {
                 if let Ok(ip) = line {
                     println!("LINE: {}", ip);
-                    ip.as_bytes().iter().for_each(|b| println!("{}",b));
+                    ip.as_bytes().iter().for_each(|b| println!("{}", b));
                 }
             }
-        }        
+        }
     }
 
     #[test]
     fn test_myfile_fs_read_case11() {
         let filename = "resources/poem.txt";
         if let Err(x) = process_file(filename) {
-            eprintln!("{:?}",x);
+            eprintln!("{:?}", x);
         }
     }
 
@@ -250,19 +267,19 @@ mod tests {
     fn test_myfile_fs_read_case12() {
         let filename = "resources/poem2.txt";
         if let Err(x) = process_file(filename) {
-            eprintln!("{:?}",x);
+            eprintln!("{:?}", x);
         }
     }
 
-    fn process_file(filename:&str) -> Result<(),Box<dyn Error>> {
+    fn process_file(filename: &str) -> Result<(), Box<dyn Error>> {
         let f = File::open(filename)?;
         let mut reader = BufReader::new(f);
-    
+
         loop {
             let mut line = String::new();
             let len = reader.read_line(&mut line)?;
             println!("====================================");
-            println!("LINE: {}",line);
+            println!("LINE: {}", line);
             println!("Line is {} bytes long", len);
             println!("Line is also {} bytes long", line.len());
             println!("====================================");
@@ -273,13 +290,15 @@ mod tests {
         Ok(())
     }
 
-    fn read_lines<P>(filename:P) -> io::Result<io::Lines<io::BufReader<File>>> 
-        where P: AsRef<Path>, {
-            let file = File::open(filename)?;
-            Ok(io::BufRead::lines(io::BufReader::new(file)))
+    fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
+    where
+        P: AsRef<Path>,
+    {
+        let file = File::open(filename)?;
+        Ok(io::BufRead::lines(io::BufReader::new(file)))
     }
 
-    fn show_contents_lines(contents:String) {
+    fn show_contents_lines(contents: String) {
         for line in contents.lines() {
             println!("LINE: {}", line);
             for word in line.split_ascii_whitespace() {
@@ -288,10 +307,9 @@ mod tests {
         }
     }
 
-    fn show_contents_lines2(filename:&str) -> Result<(),Box<dyn Error>> {
+    fn show_contents_lines2(filename: &str) -> Result<(), Box<dyn Error>> {
         let contents = fs::read_to_string(filename)?;
         contents.lines().for_each(|line| println!("LINE: {}", line));
         Ok(())
     }
-
 }

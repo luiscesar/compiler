@@ -1,14 +1,17 @@
-use std::{rc::Rc, fmt::Display};
 use self::op::{LogicalBinaryOperationPtr, LogicalUnaryOperationPtr};
-use super::{ExprT,types::{Typed, BOOL, Type}};
+use super::{
+    types::{Type, Typed, BOOL},
+    ExprT,
+};
+use std::{fmt::Display, rc::Rc};
 
 pub mod op;
 
 pub type LogicalOperationPtr = Rc<LogicalOperation>;
 
-pub trait LogicalOperationT:ExprT{}
+pub trait LogicalOperationT: ExprT {}
 
-#[derive(Debug,PartialEq)]
+#[derive(Debug, PartialEq)]
 pub enum LogicalOperation {
     BINARY(LogicalBinaryOperationPtr),
     UNARY(LogicalUnaryOperationPtr),
