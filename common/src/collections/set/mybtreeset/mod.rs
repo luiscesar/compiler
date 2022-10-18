@@ -20,15 +20,15 @@ impl<T:Ord, const N: usize> From<[T; N]> for MyBTreeSet<T> {
         if N == 0 {
             return MyBTreeSet{values:BTreeSet::new()}
         }
-        /* 
+        
         let mut my_set = MyBTreeSet::new();
         for x in arr {
             my_set.add(x);
         }
         my_set
-        */
-        let values = BTreeSet::from(arr);
-        MyBTreeSet { values }
+        
+        //let values = BTreeSet::from(arr);
+        //MyBTreeSet { values }
     }
 }
 
