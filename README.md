@@ -195,5 +195,4 @@ https://doc.rust-lang.org/book/ch01-01-installation.html#installation
    
    c) front-end resources/input_program1.txt
   
-#Copyright
  
